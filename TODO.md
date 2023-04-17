@@ -1,0 +1,15 @@
+- [x] TODO: Search bar
+- [x] TODO: Separate playlists when searching
+- [x] TODO: Figure out how to do `shuffle`
+- [x] TODO: Virtual scroll
+- [x] TODO: figure out how to cache everything without switching Audio
+- [x] TODO: Add `scroll to current track`
+- [x] TODO: Refactor songs loading
+- [x] TODO: Reduce the data that is being saved
+- [x] TODO: Make Search bar Sticky
+- [x] TODO: Add custom title bar
+- [x] TODO: Add icons
+- [x] TODO: Show loading state
+- [x] TODO: Highlight currently playing song in the list
+- [x] TODO: Handle spacebar press when focused on the window
+- [x] TODO: Fix spacebar in focusable elements
