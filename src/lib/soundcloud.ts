@@ -11,8 +11,10 @@ import { filterSongs, transformLikes } from '../utils'
 
 export default class SoundCloudAPI {
   private readonly clientId = import.meta.env.VITE_CLIENT_ID
-  private readonly profileUrl = import.meta.env.VITE_CLIENT_PROFILE
-  private readonly weeklyUrl = import.meta.env.VITE_CLIENT_WEEKLY
+  private readonly profileUrl = `https://soundcloud.com/${import.meta.env.VITE_CLIENT_PROFILE}`
+  private readonly weeklyUrl = `https://soundcloud.com/discover/sets/weekly::${
+    import.meta.env.VITE_CLIENT_PROFILE
+  }`
   private readonly baseURL = 'https://api-v2.soundcloud.com'
 
   public async getLikes(id: number, amount?: number) {
