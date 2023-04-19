@@ -6,6 +6,7 @@ export function useHls({ onError }: { onError: () => void }) {
   onUnmounted(() => {
     hls.destroy()
   })
+
   hls.on(Hls.Events.ERROR, function (event, data) {
     if (data.fatal) {
       switch (data.type) {

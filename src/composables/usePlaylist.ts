@@ -12,7 +12,7 @@ export const usePlaylist = (list: Ref<Song[]>) => {
   const hls = useHls({ onError: playNext })
 
   const selectedSongIdx = ref(0)
-  const selectedSong = computed(() => list.value.at(selectedSongIdx.value))
+  const selectedSong = computed(() => list.value.at(selectedSongIdx.value)!)
 
   async function pickSong(idx: number) {
     controls.playing.value = false

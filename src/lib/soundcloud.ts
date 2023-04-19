@@ -17,6 +17,18 @@ export default class SoundCloudAPI {
   }`
   private readonly baseURL = 'https://api-v2.soundcloud.com'
 
+  private async fromMediaUrl(transcoding: SoundCloudTranscoding) {
+    const {
+      data: { url }
+    } = await tauriFetch<{ url: string }>(transcoding.url, {
+      method: 'GET',
+      query: {
+        client_id: this.clientId
+      }
+    })
+    return url
+  }
+
   public async getLikes(id: number, amount?: number) {
     const likes = await tauriFetch<SoundCloudLikes>(
       new URL(`/users/${id}/likes`, this.baseURL).href,
@@ -40,18 +52,6 @@ export default class SoundCloudAPI {
       }
     })
     return user.data
-  }
-
-  private async fromMediaUrl(transcoding: SoundCloudTranscoding) {
-    const {
-      data: { url }
-    } = await tauriFetch<{ url: string }>(transcoding.url, {
-      method: 'GET',
-      query: {
-        client_id: this.clientId
-      }
-    })
-    return url
   }
 
   async getStreamLink(media: SoundCloudMedia) {
