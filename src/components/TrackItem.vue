@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {} from 'tailwindcss'
-import { Song } from '../lib/soundcloud'
+import { Song } from '../utils'
 
 defineProps<{
   item: Song

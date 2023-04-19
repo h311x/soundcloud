@@ -1,7 +1,8 @@
 import { useEventListener, useMediaControls } from '@vueuse/core'
 import { Ref, computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import SoundCloudAPI, { Song } from '../lib/soundcloud'
+import SoundCloudAPI from '../lib/soundcloud'
 import Hls from 'hls.js'
+import { Song } from '../utils'
 
 export const usePlaylist = (list: Ref<Song[]>) => {
   const api = new SoundCloudAPI()
@@ -11,10 +12,6 @@ export const usePlaylist = (list: Ref<Song[]>) => {
   onUnmounted(() => {
     hls.destroy()
   })
-
-  // hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-  //   console.log('audio and hls.js are now bound together !')
-  // })
 
   hls.on(Hls.Events.ERROR, function (event, data) {
     if (data.fatal) {

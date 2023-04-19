@@ -8,8 +8,8 @@ import Button from './ui/Button'
 import Input from './ui/Input'
 import TrackItem from './TrackItem.vue'
 import useVirtualList from '../composables/useVirtualList'
-import { Song } from '../lib/soundcloud'
 import { SparklesIcon } from '@heroicons/vue/20/solid'
+import { Song } from '../utils'
 
 const props = defineProps<{ likedSongs: Song[] }>()
 const emit = defineEmits<{
