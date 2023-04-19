@@ -1,15 +1,17 @@
-- [x] TODO: Search bar
-- [x] TODO: Separate playlists when searching
-- [x] TODO: Figure out how to do `shuffle`
-- [x] TODO: Virtual scroll
-- [x] TODO: figure out how to cache everything without switching Audio
-- [x] TODO: Add `scroll to current track`
-- [x] TODO: Refactor songs loading
-- [x] TODO: Reduce the data that is being saved
-- [x] TODO: Make Search bar Sticky
-- [x] TODO: Add custom title bar
-- [x] TODO: Add icons
-- [x] TODO: Show loading state
-- [x] TODO: Highlight currently playing song in the list
-- [x] TODO: Handle spacebar press when focused on the window
-- [x] TODO: Fix spacebar in focusable elements
+- [x] Search bar
+- [x] Separate playlists when searching
+- [x] Figure out how to do `shuffle`
+- [x] Virtual scroll
+- [x] figure out how to cache everything without switching Audio
+- [x] Add `scroll to current track`
+- [x] Refactor songs loading
+- [x] Reduce the data that is being saved
+- [x] Make Search bar Sticky
+- [x] Add custom title bar
+- [x] Add icons
+- [x] Show loading state
+- [x] Highlight currently playing song in the list
+- [x] Handle spacebar press when focused on the window
+- [x] Fix spacebar in focusable elements
+- [ ] Research how does `like` api work 
+- [ ] Implement separate playlists tab which would hold liked playlists and weekly playlist. 
