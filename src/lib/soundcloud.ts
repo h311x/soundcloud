@@ -37,12 +37,12 @@ function transformLikes(l: SoundCloudTrack[]) {
 export type Song = ReturnType<typeof transformLikes>[number]
 
 export default class SoundCloudAPI {
-  clientId = import.meta.env.VITE_CLIENT_ID
-  profileUrl = import.meta.env.VITE_CLIENT_PROFILE
-  weeklyUrl = import.meta.env.VITE_CLIENT_WEEKLY
-  baseURL = 'https://api-v2.soundcloud.com'
+  private readonly clientId = import.meta.env.VITE_CLIENT_ID
+  private readonly profileUrl = import.meta.env.VITE_CLIENT_PROFILE
+  private readonly weeklyUrl = import.meta.env.VITE_CLIENT_WEEKLY
+  private readonly baseURL = 'https://api-v2.soundcloud.com'
 
-  async getLikes(id: number, amount?: number) {
+  public async getLikes(id: number, amount?: number) {
     const likes = await tauriFetch<SoundCloudLikes>(
       new URL(`/users/${id}/likes`, this.baseURL).href,
       {
@@ -56,7 +56,7 @@ export default class SoundCloudAPI {
     return transformLikes(filterSongs(likes.data))
   }
 
-  async getUser() {
+  public async getUser() {
     const user = await tauriFetch<SoundCloudUser>(new URL('/resolve', this.baseURL).href, {
       method: 'GET',
       query: {
@@ -67,22 +67,7 @@ export default class SoundCloudAPI {
     return user.data
   }
 
-  async fromDownloadLink(id: number) {
-    const {
-      data: { redirectUri }
-    } = await tauriFetch<{ redirectUri: string }>(
-      new URL(`/tracks/${id}/download`, this.baseURL).href,
-      {
-        method: 'GET',
-        query: {
-          client_id: this.clientId
-        }
-      }
-    )
-    return redirectUri
-  }
-
-  async fromMediaUrl(transcoding: SoundCloudTranscoding) {
+  private async fromMediaUrl(transcoding: SoundCloudTranscoding) {
     const {
       data: { url }
     } = await tauriFetch<{ url: string }>(transcoding.url, {
@@ -95,14 +80,6 @@ export default class SoundCloudAPI {
   }
 
   async getStreamLink(media: SoundCloudMedia) {
-    // if (track.downloadable) {
-    //   try {
-    //     return await this.fromDownloadLink(track.id)
-    //   } catch (e) {
-    //     console.log('Could not download from download link', e)
-    //   }
-    // }
-
     return await this.fromMediaUrl(
       media.transcodings.find(
         (el) => el.format.mime_type === 'audio/mpeg' && el.format.protocol === 'hls'
@@ -110,7 +87,7 @@ export default class SoundCloudAPI {
     )
   }
 
-  async getSetInfo(url: string) {
+  public async getSetInfo(url: string) {
     const { data } = await tauriFetch<SoundCloudWeekly>(new URL(`/resolve`, this.baseURL).href, {
       method: 'GET',
       query: {
@@ -121,7 +98,7 @@ export default class SoundCloudAPI {
     return data
   }
 
-  async getTrackInfo(ids: number[]) {
+  public async getTrackInfo(ids: number[]) {
     const { data } = await tauriFetch<SoundCloudTrack[]>(new URL(`/tracks`, this.baseURL).href, {
       method: 'GET',
       query: {
@@ -132,7 +109,7 @@ export default class SoundCloudAPI {
     return data
   }
 
-  async getPlaylist(url: string) {
+  public async getPlaylist(url: string) {
     // TODO: Check if 50 elements or more?
     const { title, tracks } = await this.getSetInfo(url)
 
@@ -142,7 +119,7 @@ export default class SoundCloudAPI {
     }
   }
 
-  async getWeekly() {
+  public async getWeekly() {
     return await this.getPlaylist(this.weeklyUrl)
   }
 }
