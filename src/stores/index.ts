@@ -1,7 +1,7 @@
 import { Store } from 'tauri-plugin-store-api'
 import { add, isBefore } from 'date-fns'
 
-export const store = new Store('sc.dat')
+const store = new Store('sc.dat')
 
 export async function fetchOrGetFromCache<T extends (...args: any) => unknown>(
   key: string,

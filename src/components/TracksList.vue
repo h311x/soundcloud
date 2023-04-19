@@ -2,7 +2,6 @@
 import ControlsBar from './ControlsBar.vue'
 import { usePlaylist } from '../composables/usePlaylist'
 import { computed, ref, watch } from 'vue'
-import { store } from '../stores'
 import { useArrayFilter } from '@vueuse/core'
 import Button from './ui/Button'
 import Input from './ui/Input'
@@ -77,7 +76,6 @@ watch(selectedSong, (v) => {
       <!-- {{ controls }} -->
       <div class="px-4 pb-4 flex gap-10">
         <Button @click="emit('refetch')" variant="outline"> refetch likes</Button>
-        <Button @click="store.clear()">Clear Store</Button>
       </div>
     </div>
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import TracksList from './TracksList.vue'
 import SoundCloudAPI from '../lib/soundcloud'
-import { fetchOrGetFromCache, store } from '../stores'
-import { onMounted, shallowRef } from 'vue'
+import { fetchOrGetFromCache } from '../stores'
+import { shallowRef } from 'vue'
 
 const sc = new SoundCloudAPI()
 
@@ -22,10 +22,6 @@ async function refetch() {
     true
   )
 }
-
-onMounted(async () => {
-  console.log(await store.entries())
-})
 </script>
 
 <template>
