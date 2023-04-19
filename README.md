@@ -1,7 +1,7 @@
 # Desktop Soundcloud App
 
 ## **Warning!** 
-**This software is work in progress**
+**This software is work-in-progress**
 
 ## Why?
 - Because *Official*  Desktop soundcloud app sucks and is pretty buggy
