@@ -46,11 +46,6 @@ const [rowVirtualizer, listRef] = useVirtualList(
   (idx) => filteredList.value[idx].id.toString() ?? ''
 )
 
-function selectSongAndPlaylist(idx: number) {
-  currentPlaylist.value = filteredList.value
-  pickSong(idx)
-}
-
 watch(selectedSong, (v) => {
   const idx = filteredList.value.findIndex((el) => el.id === v?.id)
   if (idx === -1) return
@@ -62,6 +57,11 @@ watch(selectedSong, (v) => {
     }
   )
 })
+
+function selectSongAndPlaylist(idx: number) {
+  currentPlaylist.value = filteredList.value
+  pickSong(idx)
+}
 </script>
 
 <template>
