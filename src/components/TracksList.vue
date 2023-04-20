@@ -27,7 +27,7 @@ watch(selectedSong, (v) => {
 <template>
   <div
     v-bind="containerProps"
-    class="grow overflow-auto scrollbar scrollbar-track-transparent scrollbar-thumb-slate-200/90 scrollbar-thumb-rounded scrollbar-w-2"
+    class="overflow-auto scrollbar scrollbar-track-transparent scrollbar-thumb-slate-200/90 scrollbar-thumb-rounded scrollbar-w-2"
   >
     <div v-bind="wrapperProps" class="flex flex-col relative gap-4">
       <TrackItem

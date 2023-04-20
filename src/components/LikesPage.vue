@@ -65,7 +65,7 @@ function selectSongAndPlaylist(idx: number) {
 </script>
 
 <template>
-  <div class="flex flex-col h-screen bg-slate-900/60">
+  <div class="flex flex-col h-screen">
     <div>
       <div class="p-4 flex gap-5">
         <Input v-model="search" placeholder="Type to search" spellcheck="false" />
@@ -80,6 +80,7 @@ function selectSongAndPlaylist(idx: number) {
     </div>
 
     <TracksList
+      class="grow"
       :list="filteredList"
       :selected-song="selectedSong"
       @select-song="selectSongAndPlaylist"

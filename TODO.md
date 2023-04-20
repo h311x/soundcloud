@@ -14,5 +14,5 @@
 - [x] Handle spacebar press when focused on the window
 - [x] Fix spacebar in focusable elements
 - [x] Change how Virtual scroll in TracksList work to make the app completely transparent 
-- [ ] Research how does `like` api work 
 - [ ] Implement separate playlists tab which would hold liked playlists and weekly playlist. 
+- [ ] Research how does `like` api work 
