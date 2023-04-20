@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+* {
     @apply overscroll-none;
 }
+
 body {
     @apply bg-slate-900/10 text-slate-100;
 }

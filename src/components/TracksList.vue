@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import TrackItem from './TrackItem.vue'
-import useVirtualList from '../composables/useVirtualList'
 import { toRefs, watch } from 'vue'
 import { Song } from '../utils'
+import { useVirtualList } from '@vueuse/core'
 
 const props = defineProps<{ list: Song[]; selectedSong: Song }>()
 defineEmits<{
@@ -10,40 +10,37 @@ defineEmits<{
 }>()
 const { list, selectedSong } = toRefs(props)
 
-const [rowVirtualizer, listRef] = useVirtualList(list, (idx) => list.value[idx].id.toString() ?? '')
+const {
+  list: virtualizedList,
+  containerProps,
+  wrapperProps,
+  scrollTo
+} = useVirtualList(list, { itemHeight: 116 })
 
 watch(selectedSong, (v) => {
   const idx = list.value.findIndex((el) => el.id === v?.id)
   if (idx === -1) return
-  rowVirtualizer.value.scrollToOffset(
-    (idx + 1) * rowVirtualizer.value.options.estimateSize(idx) -
-      rowVirtualizer.value.options.scrollMargin,
-    {
-      behavior: 'smooth'
-    }
-  )
+  scrollTo(idx)
 })
 </script>
 
 <template>
   <div
-    ref="listRef"
-    class="flex flex-col relative mb-16"
-    :style="{
-      height: `${rowVirtualizer.getTotalSize()}px`
-    }"
+    v-bind="containerProps"
+    class="grow overflow-auto scrollbar scrollbar-track-transparent scrollbar-thumb-slate-200/90 scrollbar-thumb-rounded scrollbar-w-2"
   >
-    <TrackItem
-      v-for="virtualItem in rowVirtualizer.getVirtualItems()"
-      :key="virtualItem.key"
-      :style="{
-        height: `${virtualItem.size - 16}px`,
-        transform: `translateY(${virtualItem.start - rowVirtualizer.options.scrollMargin}px)`
-      }"
-      :item="list[virtualItem.index]"
-      :item-index="virtualItem.index"
-      :is-selected="list[virtualItem.index].id === selectedSong?.id"
-      @select-song="$emit('select-song', virtualItem.index)"
-    />
+    <div v-bind="wrapperProps" class="flex flex-col relative gap-4">
+      <TrackItem
+        v-for="{ index, data } in virtualizedList"
+        :key="data.id"
+        :style="{
+          height: `100px`
+        }"
+        :item="data"
+        :item-index="index"
+        :is-selected="data.id === selectedSong?.id"
+        @select-song="$emit('select-song', index)"
+      />
+    </div>
   </div>
 </template>

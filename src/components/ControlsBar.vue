@@ -13,7 +13,7 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="fixed bottom-0 bg-slate-950 px-4 py-2 w-full flex gap-4">
+  <div class="px-4 py-2 w-full flex gap-4">
     <div class="flex gap-4">
       <Button variant="outline" @click="$emit('prev')">
         <BackwardIcon class="w-5 h-5" />

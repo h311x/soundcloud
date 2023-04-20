@@ -14,8 +14,8 @@ defineEmits<{
 
 <template>
   <div
-    class="flex gap-4 hover:bg-white/10 cursor-pointer absolute top-0 left-0 w-full"
-    :class="{ 'bg-white/10': isSelected }"
+    class="flex gap-4 hover:bg-white/10 cursor-pointer w-full"
+    :class="{ 'bg-white/20': isSelected }"
     @click="$emit('selectSong', itemIndex)"
   >
     <div class="border overflow-hidden w-[100px] h-[100px] shrink-0">

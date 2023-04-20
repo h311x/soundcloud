@@ -65,8 +65,8 @@ function selectSongAndPlaylist(idx: number) {
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <div class="sticky top-0 bg-slate-900 z-10">
+  <div class="flex flex-col h-screen bg-slate-900/60">
+    <div>
       <div class="p-4 flex gap-5">
         <Input v-model="search" placeholder="Type to search" spellcheck="false" />
         <Button @click="shuffle">
