@@ -2,14 +2,13 @@
 import TracksList from './TracksList.vue'
 import SoundCloudAPI from '../lib/soundcloud'
 import { fetchOrGetFromCache } from '../stores'
-import { shallowRef, unref, watch } from 'vue'
+import { shallowRef } from 'vue'
 import ControlsBar from './ControlsBar.vue'
 import { usePlaylist } from '../composables/usePlaylist'
 import { computed, ref } from 'vue'
 import Button from './ui/Button'
 import Input from './ui/Input'
 import { SparklesIcon } from '@heroicons/vue/20/solid'
-import { clone, map, sort } from 'ramda'
 
 const sc = new SoundCloudAPI()
 
