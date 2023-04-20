@@ -42,7 +42,7 @@ const filteredList = computed(() =>
   })
 )
 
-const currentPlaylist = ref(likes.value)
+const currentPlaylist = shallowRef(likes.value)
 
 const { controls, playNext, playPrev, pickSong, selectedSong } = usePlaylist(currentPlaylist)
 
