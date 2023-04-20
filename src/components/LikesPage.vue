@@ -2,13 +2,14 @@
 import TracksList from './TracksList.vue'
 import SoundCloudAPI from '../lib/soundcloud'
 import { fetchOrGetFromCache } from '../stores'
-import { shallowRef } from 'vue'
+import { shallowRef, unref, watch } from 'vue'
 import ControlsBar from './ControlsBar.vue'
 import { usePlaylist } from '../composables/usePlaylist'
 import { computed, ref } from 'vue'
 import Button from './ui/Button'
 import Input from './ui/Input'
 import { SparklesIcon } from '@heroicons/vue/20/solid'
+import { clone, map, sort } from 'ramda'
 
 const sc = new SoundCloudAPI()
 
@@ -42,16 +43,16 @@ const filteredList = computed(() =>
   })
 )
 
-const currentPlaylist = ref(likes)
+const currentPlaylist = ref(likes.value)
 
 const { controls, playNext, playPrev, pickSong, selectedSong } = usePlaylist(currentPlaylist)
 
 function shuffle() {
   console.time('Shuffle')
   const s = likes.value
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
+    .map((v) => ({ v, s: Math.random() }))
+    .sort((a, b) => a.s - b.s)
+    .map(({ v }) => v)
   console.timeEnd('Shuffle')
 
   currentPlaylist.value = s
