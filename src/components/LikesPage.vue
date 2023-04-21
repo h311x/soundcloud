@@ -7,8 +7,8 @@ import ControlsBar from './ControlsBar.vue'
 import { usePlaylist } from '../composables/usePlaylist'
 import { computed, ref } from 'vue'
 import Button from './ui/Button'
-import Input from './ui/Input'
 import { SparklesIcon } from '@heroicons/vue/20/solid'
+import PredictiveAutocomplete from './PredictiveAutocomplete.vue'
 
 const sc = new SoundCloudAPI()
 
@@ -68,7 +68,9 @@ function selectSongAndPlaylist(idx: number) {
   <div class="flex flex-col h-screen">
     <div>
       <div class="p-4 flex gap-5">
-        <Input v-model="search" placeholder="Type to search" spellcheck="false" />
+        <div>
+          <PredictiveAutocomplete v-model="search" :list="likes" />
+        </div>
         <Button @click="shuffle">
           <SparklesIcon class="w-5 h-5" />
         </Button>
