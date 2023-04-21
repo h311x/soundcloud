@@ -36,10 +36,9 @@ watch(selectedSong, (v) => {
         :style="{
           height: `100px`
         }"
-        :item="data"
-        :item-index="index"
+        :song="data"
         :is-selected="data.id === selectedSong?.id"
-        @select-song="$emit('select-song', index)"
+        @click="$emit('select-song', index)"
       />
     </div>
   </div>

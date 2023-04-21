@@ -51,7 +51,11 @@ export const usePlaylist = (list: Ref<Song[]>) => {
 
   // Handle pressing on spacebar when focused on window
   useEventListener(document, 'keydown', (e) => {
-    if (e.code === 'Space' && document.activeElement === document.body) {
+    if (
+      e.code === 'Space' &&
+      document.activeElement &&
+      !['INPUT', 'BUTTON', 'TEXTAREA'].includes(document.activeElement.tagName)
+    ) {
       e.preventDefault()
       controls.playing.value = !controls.playing.value
     }

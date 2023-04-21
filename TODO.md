@@ -14,6 +14,11 @@
 - [x] Handle spacebar press when focused on the window
 - [x] Fix spacebar in focusable elements
 - [x] Change how Virtual scroll in TracksList work to make the app completely transparent 
-- [ ] Add predictive autocomplete input
+- [x] Add predictive autocomplete input
+- [x] Fix spacebar
 - [ ] Implement separate playlists tab which would hold liked playlists and weekly playlist. 
 - [ ] Research how does `like` api work
+- [ ] If playing time is more than 5 seconds and pressed `back` -> restart the song
+- [ ] Properly handle playlists with one song, so it doesn't infinitely loop
+- [ ] Fix input width
+- [ ] Fix types for autocomplete
