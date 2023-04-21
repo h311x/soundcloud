@@ -9,8 +9,8 @@ export default class Autocomplete {
     this.addToState(str, data)
   }
 
-  private addToState(str: string, data: unknown, start = 0, state = this.state): void {
-    const currentChar = str[start]
+  private addToState(str: string, data: unknown, idx = 0, state = this.state): void {
+    const currentChar = str[idx]
 
     // Set char
     if (!(currentChar in state)) {
@@ -18,12 +18,12 @@ export default class Autocomplete {
     }
 
     // if last char
-    if (start === str.length - 1) {
+    if (idx === str.length - 1) {
       state[currentChar].endOfWord = true
       return
     }
 
-    return this.addToState(str, data, start + 1, state[currentChar])
+    return this.addToState(str, data, idx + 1, state[currentChar])
   }
 
   public search(str: string) {
