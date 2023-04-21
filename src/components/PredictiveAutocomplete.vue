@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Input from './ui/Input.tsx'
+import Input from './ui/Input'
 import { useVModel } from '@vueuse/core'
 import { Song } from '../utils'
 import { computed, watch } from 'vue'
