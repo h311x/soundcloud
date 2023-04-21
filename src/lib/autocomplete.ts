@@ -36,13 +36,13 @@ export default class Autocomplete {
       }
     }
 
-    return [...this.getValues(branch)].sort((a, b) => a.length - b.length)
+    return this.getValues(branch).sort((a, b) => a.length - b.length)
   }
 
-  private getValues(state: State, res = new Set() as Set<string>, stringSoFar = '') {
+  private getValues(state: State, res = [] as string[], stringSoFar = '') {
     for (const k in state) {
       if (k === 'endOfWord' && stringSoFar) {
-        res.add(stringSoFar)
+        res.push(stringSoFar)
       } else {
         this.getValues(state[k], res, stringSoFar + k)
       }
