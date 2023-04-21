@@ -26,7 +26,11 @@ export const usePlaylist = (list: Ref<Song[]>) => {
   }
 
   function playPrev() {
-    pickSong((selectedSongIdx.value - 1) % list.value.length)
+    if (controls.currentTime.value <= 5) {
+      pickSong((selectedSongIdx.value - 1) % list.value.length)
+    } else {
+      controls.currentTime.value = 0
+    }
   }
 
   function playNext() {
