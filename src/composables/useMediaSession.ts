@@ -4,7 +4,7 @@ import { Song } from '../utils'
 
 export function useMediaSession(
   controls: ReturnType<typeof useMediaControls>,
-  [playPrev, playNext]: [() => void, () => void]
+  [playPrev, playNext, play, pause]: (() => void)[]
 ) {
   watch(controls.playing, (v) => {
     navigator.mediaSession.playbackState = v ? 'playing' : 'paused'
@@ -29,13 +29,13 @@ export function useMediaSession(
     [
       'play',
       () => {
-        controls.playing.value = true
+        play()
       }
     ],
     [
       'pause',
       () => {
-        controls.playing.value = false
+        pause()
       }
     ],
     [

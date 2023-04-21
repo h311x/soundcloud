@@ -19,6 +19,8 @@
 - [x] Fix input width
 - [x] If playing time is more than 5 seconds and pressed `back` -> restart the song
 - [x] Fix area not resizing when searching
+- [x] Make Controls global
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
 - [ ] Implement separate playlists tab which would hold liked playlists and weekly playlist. 
 - [ ] Research how does `like` api work
+- [ ] Add a description where to find client_id for .env 

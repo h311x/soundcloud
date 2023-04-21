@@ -2,13 +2,13 @@
 import TracksList from './TracksList.vue'
 import SoundCloudAPI from '../lib/soundcloud'
 import { fetchOrGetFromCache } from '../stores'
-import { shallowRef } from 'vue'
+import { onMounted, shallowRef } from 'vue'
 import ControlsBar from './ControlsBar.vue'
-import { usePlaylist } from '../composables/usePlaylist'
 import { computed, ref } from 'vue'
 import Button from './ui/Button'
 import { SparklesIcon } from '@heroicons/vue/20/solid'
 import PredictiveAutocomplete from './PredictiveAutocomplete.vue'
+import { useGlobalControls } from '../composables/useGlobalControls'
 
 const sc = new SoundCloudAPI()
 
@@ -22,14 +22,6 @@ const likes = shallowRef(
   await fetchOrGetFromCache('likes', () => sc.getLikes(user.value.id, user.value.likes_count))
 )
 
-async function refetch() {
-  likes.value = await fetchOrGetFromCache(
-    'likes',
-    () => sc.getLikes(user.value.id, user.value.likes_count),
-    true
-  )
-}
-
 const search = ref('')
 const lowerSearch = computed(() => search.value.toLowerCase())
 
@@ -42,9 +34,27 @@ const filteredList = computed(() =>
   })
 )
 
-const currentPlaylist = shallowRef(likes.value)
+const [
+  {
+    controls,
+    playNext,
+    playPrev,
+    pickSong,
+    selectedSong,
+    play,
+    pause,
+    preloadAudio,
+    currentPlaylist
+  },
+  setPlaylist
+] = useGlobalControls()
 
-const { controls, playNext, playPrev, pickSong, selectedSong } = usePlaylist(currentPlaylist)
+onMounted(() => {
+  if (!currentPlaylist.value.length) {
+    setPlaylist(likes.value)
+    preloadAudio(0)
+  }
+})
 
 function shuffle() {
   console.time('Shuffle')
@@ -54,31 +64,25 @@ function shuffle() {
     .map(({ v }) => v)
   console.timeEnd('Shuffle')
 
-  currentPlaylist.value = s
+  setPlaylist(s)
   pickSong(0)
 }
 
 function selectSongAndPlaylist(idx: number) {
-  currentPlaylist.value = filteredList.value
+  setPlaylist(filteredList.value)
   pickSong(idx)
 }
 </script>
 
 <template>
   <div class="flex flex-col h-screen">
-    <div>
-      <div class="p-4 flex gap-5">
-        <div class="w-full">
-          <PredictiveAutocomplete v-model="search" :list="likes" />
-        </div>
-        <Button @click="shuffle">
-          <SparklesIcon class="w-5 h-5" />
-        </Button>
+    <div class="p-4 flex gap-5">
+      <div class="w-full">
+        <PredictiveAutocomplete v-model="search" :list="likes" />
       </div>
-
-      <div class="px-4 pb-4 flex gap-10">
-        <Button @click="refetch" variant="outline"> refetch likes</Button>
-      </div>
+      <Button @click="shuffle">
+        <SparklesIcon class="w-5 h-5" />
+      </Button>
     </div>
 
     <TracksList
@@ -93,8 +97,8 @@ function selectSongAndPlaylist(idx: number) {
       :size="(controls.currentTime.value / (controls.duration.value + 1)) * 100"
       @next="playNext"
       @prev="playPrev"
-      @play="controls.playing.value = true"
-      @pause="controls.playing.value = false"
+      @play="play"
+      @pause="pause"
     />
   </div>
 </template>
