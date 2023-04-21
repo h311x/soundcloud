@@ -17,6 +17,9 @@ const {
   scrollTo
 } = useVirtualList(list, { itemHeight: 116 })
 
+// Reset position due to: https://github.com/vueuse/vueuse/issues/2888
+watch(list, () => scrollTo(0))
+
 watch(selectedSong, (v) => {
   const idx = list.value.findIndex((el) => el.id === v?.id)
   if (idx === -1) return

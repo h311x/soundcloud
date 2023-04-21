@@ -18,6 +18,7 @@
 - [x] Fix spacebar
 - [x] Fix input width
 - [x] If playing time is more than 5 seconds and pressed `back` -> restart the song
+- [x] Fix area not resizing when searching
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
 - [ ] Implement separate playlists tab which would hold liked playlists and weekly playlist. 
 - [ ] Research how does `like` api work
