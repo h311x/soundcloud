@@ -20,6 +20,7 @@ const emit = defineEmits<{
 const search = useVModel(props, 'modelValue', emit)
 
 const autocompleteOption = computed(() => {
+  if (!search.value) return ''
   console.time('Search')
   const r = autocomplete.search(search.value.toLowerCase())
   console.timeEnd('Search')
