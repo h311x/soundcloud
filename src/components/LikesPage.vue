@@ -68,7 +68,7 @@ function selectSongAndPlaylist(idx: number) {
   <div class="flex flex-col h-screen">
     <div>
       <div class="p-4 flex gap-5">
-        <div>
+        <div class="w-full">
           <PredictiveAutocomplete v-model="search" :list="likes" />
         </div>
         <Button @click="shuffle">
