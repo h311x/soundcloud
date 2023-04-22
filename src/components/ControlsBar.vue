@@ -1,27 +1,24 @@
 <script setup lang="ts">
 import Button from './ui/Button'
 import { PlayIcon, PauseIcon, ForwardIcon, BackwardIcon } from '@heroicons/vue/20/solid'
+import { useGlobalControls } from '../composables/useGlobalControls'
+import { computed } from 'vue'
 
-defineProps<{ size: number; isPlaying: boolean }>()
+const [{ controls, playNext, playPrev, play, pause }] = useGlobalControls()
 
-defineEmits<{
-  (e: 'play'): void
-  (e: 'pause'): void
-  (e: 'next'): void
-  (e: 'prev'): void
-}>()
+const size = computed(() => (controls.currentTime.value / (controls.duration.value + 1)) * 100)
 </script>
 
 <template>
   <div class="px-4 py-2 w-full flex gap-4">
     <div class="flex gap-4">
-      <Button variant="outline" @click="$emit('prev')">
+      <Button variant="outline" @click="playPrev">
         <BackwardIcon class="w-5 h-5" />
       </Button>
-      <Button variant="outline" @click="$emit(isPlaying ? 'pause' : 'play')">
-        <Component class="w-5 h-5" :is="isPlaying ? PauseIcon : PlayIcon" />
+      <Button variant="outline" @click="controls.playing.value ? pause() : play()">
+        <Component class="w-5 h-5" :is="controls.playing.value ? PauseIcon : PlayIcon" />
       </Button>
-      <Button variant="outline" @click="$emit('next')">
+      <Button variant="outline" @click="playNext">
         <ForwardIcon class="w-5 h-5" />
       </Button>
     </div>

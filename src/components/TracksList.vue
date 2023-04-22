@@ -3,12 +3,27 @@ import TrackItem from './TrackItem.vue'
 import { onMounted, toRef, watch } from 'vue'
 import { Song } from '../utils'
 import { useVirtualList } from '@vueuse/core'
+import { useGlobalControls } from '../composables/useGlobalControls'
 
-const props = defineProps<{ list: Song[]; selectedSong: Song | undefined }>()
-defineEmits<{
-  (e: 'select-song', v: number): void
-}>()
+const props = defineProps<{ list: Song[] }>()
 const list = toRef(props, 'list')
+
+const [{ pickSong, selectedSong, currentPlaylist, preloadAudio, controls }, setPlaylist] =
+  useGlobalControls()
+
+// Preselect playlist and preload first song
+// TODO: Decide if this should trigger on `!controls.playing.value` or `!selectedSong.value`
+onMounted(() => {
+  if (!currentPlaylist.value.length || (currentPlaylist.value.length && !controls.playing.value)) {
+    setPlaylist(list.value)
+    preloadAudio(0)
+  }
+})
+
+function selectSongAndPlaylist(idx: number) {
+  setPlaylist(list.value)
+  pickSong(idx)
+}
 
 const {
   list: virtualizedList,
@@ -21,7 +36,7 @@ const {
 watch(list, () => scrollTo(0))
 
 function scrollToSelectedSong() {
-  const idx = list.value.findIndex((el) => el.id === props.selectedSong?.id)
+  const idx = list.value.findIndex((el) => el.id === selectedSong.value?.id)
   if (idx === -1) return
   scrollTo(idx)
 }
@@ -30,12 +45,9 @@ onMounted(() => {
   scrollToSelectedSong()
 })
 
-watch(
-  () => props.selectedSong,
-  () => {
-    scrollToSelectedSong()
-  }
-)
+watch(selectedSong, () => {
+  scrollToSelectedSong()
+})
 </script>
 
 <template>
@@ -52,7 +64,7 @@ watch(
         }"
         :song="data"
         :is-selected="data.id === selectedSong?.id"
-        @click="$emit('select-song', index)"
+        @click="selectSongAndPlaylist(index)"
       />
     </div>
   </div>

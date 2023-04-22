@@ -29,21 +29,22 @@ export default class SoundCloudAPI {
     return url
   }
 
-  public async getLikes(id: number, amount?: number) {
+  public async getLikes() {
+    const user = await this.getUser()
     const likes = await tauriFetch<SoundCloudLikes>(
-      new URL(`/users/${id}/likes`, this.baseURL).href,
+      new URL(`/users/${user.id}/likes`, this.baseURL).href,
       {
         method: 'GET',
         query: {
           client_id: this.clientId,
-          limit: amount?.toString()
+          limit: user.likes_count.toString()
         }
       }
     )
     return transformLikes(filterSongs(likes.data))
   }
 
-  public async getUser() {
+  private async getUser() {
     const user = await tauriFetch<SoundCloudUser>(new URL('/resolve', this.baseURL).href, {
       method: 'GET',
       query: {
@@ -54,7 +55,7 @@ export default class SoundCloudAPI {
     return user.data
   }
 
-  async getStreamLink(media: SoundCloudMedia) {
+  public async getStreamLink(media: SoundCloudMedia) {
     return await this.fromMediaUrl(
       media.transcodings.find(
         (el) => el.format.mime_type === 'audio/mpeg' && el.format.protocol === 'hls'
@@ -62,7 +63,7 @@ export default class SoundCloudAPI {
     )
   }
 
-  public async getSetInfo(url: string) {
+  private async getSetInfo(url: string) {
     const { data } = await tauriFetch<SoundCloudWeekly>(new URL(`/resolve`, this.baseURL).href, {
       method: 'GET',
       query: {
@@ -73,7 +74,7 @@ export default class SoundCloudAPI {
     return data
   }
 
-  public async getTrackInfo(ids: number[]) {
+  private async getTrackInfo(ids: number[]) {
     const { data } = await tauriFetch<SoundCloudTrack[]>(new URL(`/tracks`, this.baseURL).href, {
       method: 'GET',
       query: {
@@ -84,7 +85,7 @@ export default class SoundCloudAPI {
     return data
   }
 
-  public async getPlaylist(url: string) {
+  private async getPlaylist(url: string) {
     // TODO: Check if 50 elements or more?
     const { title, tracks } = await this.getSetInfo(url)
 
