@@ -4,6 +4,7 @@ import SoundCloudAPI from '../lib/soundcloud'
 import { Song } from '../utils'
 import { useMediaSession } from './useMediaSession'
 import { useHls } from './useHls'
+import { PlaylistType } from '../lib/playlistType'
 
 export const usePlaylist = (list: Ref<Song[]>) => {
   const api = new SoundCloudAPI()
@@ -12,6 +13,7 @@ export const usePlaylist = (list: Ref<Song[]>) => {
   const hls = useHls({ onError: playNext })
   hls.attachMedia(audio.value)
 
+  const selectedPlaylistType = ref<PlaylistType | undefined>()
   const selectedSongIdx = ref(0)
   const selectedSong = computed(() => list.value.at(selectedSongIdx.value))
 
@@ -82,6 +84,7 @@ export const usePlaylist = (list: Ref<Song[]>) => {
     playNext,
     playPrev,
     selectedSong,
+    selectedPlaylistType,
     preloadAudio,
     currentPlaylist: list
   }

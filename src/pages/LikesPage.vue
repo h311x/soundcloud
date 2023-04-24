@@ -2,13 +2,13 @@
 import TracksList from '../components/TracksList.vue'
 import SoundCloudAPI from '../lib/soundcloud'
 import { fetchOrGetFromCache } from '../stores'
-import { shallowRef } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import Button from '../components/ui/Button'
 import { SparklesIcon } from '@heroicons/vue/20/solid'
 import PredictiveAutocomplete from '../components/PredictiveAutocomplete.vue'
 import { useGlobalControls } from '../composables/useGlobalControls'
 import TypographyH3 from '../components/typography/TypographyH3.vue'
+import { PlaylistType } from '../lib/playlistType'
 
 const sc = new SoundCloudAPI()
 
@@ -36,7 +36,7 @@ function shuffle() {
     .map(({ v }) => v)
   console.timeEnd('Shuffle')
 
-  setPlaylist(s)
+  setPlaylist(s, PlaylistType.Likes)
   pickSong(0)
 }
 </script>
@@ -55,6 +55,6 @@ function shuffle() {
       </div>
     </div>
 
-    <TracksList :list="filteredList" />
+    <TracksList :list="filteredList" :playlistType="PlaylistType.Likes" />
   </div>
 </template>

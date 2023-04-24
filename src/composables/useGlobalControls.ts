@@ -2,21 +2,18 @@ import { provide, inject, shallowRef } from 'vue'
 import type { InjectionKey } from 'vue'
 import { usePlaylist } from './usePlaylist'
 import { Song } from '../utils'
+import { PlaylistType } from '../lib/playlistType'
 
-const key = Symbol() as InjectionKey<[ReturnType<typeof usePlaylist>, (p: Song[]) => void]>
+const key = Symbol() as InjectionKey<ReturnType<typeof usePlaylist>>
 
 export function createGlobalControls() {
   const currentPlaylist = shallowRef<Song[]>([])
 
-  function setPlaylist(p: Song[]) {
-    currentPlaylist.value = p
-  }
-
   const playlistControls = usePlaylist(currentPlaylist)
 
-  provide(key, [playlistControls, setPlaylist])
+  provide(key, playlistControls)
 
-  return [playlistControls, setPlaylist]
+  return playlistControls
 }
 
 export function useGlobalControls() {
@@ -25,5 +22,10 @@ export function useGlobalControls() {
     throw new Error('createGlobalControls was not called')
   }
 
-  return t
+  const setPlaylist = (p: Song[], playlistType: PlaylistType) => {
+    t.currentPlaylist.value = p
+    t.selectedPlaylistType.value = playlistType
+  }
+
+  return [t, setPlaylist] as const
 }
