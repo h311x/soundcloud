@@ -4,7 +4,7 @@ import SoundCloudAPI from '../lib/soundcloud'
 import { shallowRef } from 'vue'
 import { fetchOrGetFromCache } from '../stores'
 import TracksList from '../components/TracksList.vue'
-import { PlaylistType } from '../lib/playlistType.ts'
+import { PlaylistType } from '../lib/playlistType'
 
 const sc = new SoundCloudAPI()
 
