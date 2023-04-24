@@ -23,9 +23,11 @@
 - [x] Add weekly playlist
 - [x] IMPORTANT: Save current song index between tab switches
 - [x] IMPORTANT: Decide how to handle switching playlists
+- [ ] Add a description where to find client_id for .env
+- [ ] Add `refresh` button
+- [ ] ??? Implement song preloading on hover
+- [ ] Research how does `like` api work
 - [ ] Show current song meta in controls bar
 - [ ] Handle network errors better
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
 - [ ] ??? Implement separate playlists tab which would hold liked playlists and weekly playlist 
-- [ ] Research how does `like` api work
-- [ ] Add a description where to find client_id for .env 
