@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Song } from '../utils'
+import TypographyLarge from './typography/TypographyLarge.vue'
+import TypographySmall from './typography/TypographySmall.vue'
 
 defineProps<{
   song: Song
@@ -22,12 +24,12 @@ defineProps<{
       />
     </div>
     <div class="py-1">
-      <div class="text-xl">
+      <TypographyLarge>
         {{ song.title }}
-      </div>
-      <div class="font-bold text-sm text-slate-200">
+      </TypographyLarge>
+      <TypographySmall>
         {{ song.username }}
-      </div>
+      </TypographySmall>
     </div>
   </div>
 </template>
