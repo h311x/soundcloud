@@ -24,7 +24,7 @@
 - [x] IMPORTANT: Save current song index between tab switches
 - [x] IMPORTANT: Decide how to handle switching playlists
 - [x] Add a description where to find client_id for .env
-- [ ] Add `refresh` button
+- [x] Add `refresh` button
 - [ ] ??? Implement song preloading on hover
 - [ ] Research how does `like` api work
 - [ ] Show current song meta in controls bar

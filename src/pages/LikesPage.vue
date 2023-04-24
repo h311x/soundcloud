@@ -4,7 +4,7 @@ import SoundCloudAPI from '../lib/soundcloud'
 import { fetchOrGetFromCache } from '../stores'
 import { computed, ref, shallowRef } from 'vue'
 import Button from '../components/ui/Button'
-import { SparklesIcon } from '@heroicons/vue/20/solid'
+import { SparklesIcon, ArrowPathIcon } from '@heroicons/vue/20/solid'
 import PredictiveAutocomplete from '../components/PredictiveAutocomplete.vue'
 import { useGlobalControls } from '../composables/useGlobalControls'
 import TypographyH3 from '../components/typography/TypographyH3.vue'
@@ -13,6 +13,20 @@ import { PlaylistType } from '../lib/playlistType'
 const sc = new SoundCloudAPI()
 
 const likes = shallowRef(await fetchOrGetFromCache('likes', () => sc.getLikes()))
+
+const isFetching = ref(false)
+
+async function refetch() {
+  isFetching.value = true
+  try {
+    likes.value = await fetchOrGetFromCache('likes', () => sc.getLikes(), true)
+  } catch (e) {
+    // TODO: Handle Errors Better
+    console.error('Could not refetch', e)
+  } finally {
+    isFetching.value = false
+  }
+}
 
 const search = ref('')
 const lowerSearch = computed(() => search.value.toLowerCase())
@@ -44,7 +58,12 @@ function shuffle() {
 <template>
   <div class="flex flex-col">
     <div class="p-5">
-      <TypographyH3 class="mb-5">Your likes</TypographyH3>
+      <div class="flex items-center justify-between mb-3">
+        <TypographyH3>Your likes</TypographyH3>
+        <Button @click="refetch" variant="ghost">
+          <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isFetching }" />
+        </Button>
+      </div>
       <div class="flex gap-5">
         <div class="w-full">
           <PredictiveAutocomplete v-model="search" :list="likes" />
