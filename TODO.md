@@ -26,8 +26,9 @@
 - [x] Add a description where to find client_id for .env
 - [x] Add `refresh` button
 - [x] Show current song meta in controls bar
-- [ ] ??? Implement song preloading on hover
+- [ ] ??? Implement a router that would save current tab
 - [ ] Research how does `like` api work
 - [ ] Handle network errors better
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
+- [ ] ??? Implement song preloading on hover
 - [ ] ??? Implement separate playlists tab which would hold liked playlists and weekly playlist 

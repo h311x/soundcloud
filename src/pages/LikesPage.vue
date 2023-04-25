@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import TracksList from '../components/TracksList.vue'
-import SoundCloudAPI from '../lib/soundcloud'
-import { fetchOrGetFromCache } from '../stores'
+import { fetchLikes } from '../stores'
 import { computed, ref, shallowRef } from 'vue'
 import Button from '../components/ui/Button'
 import { SparklesIcon, ArrowPathIcon } from '@heroicons/vue/20/solid'
@@ -10,16 +9,18 @@ import { useGlobalControls } from '../composables/useGlobalControls'
 import TypographyH3 from '../components/typography/TypographyH3.vue'
 import { PlaylistType } from '../lib/playlistType'
 
-const sc = new SoundCloudAPI()
+const likes = shallowRef(await fetchLikes())
 
-const likes = shallowRef(await fetchOrGetFromCache('likes', () => sc.getLikes()))
+console.time('map')
+console.log(likes.value.map((el) => el.id))
+console.timeEnd('map')
 
 const isFetching = ref(false)
 
 async function refetch() {
   isFetching.value = true
   try {
-    likes.value = await fetchOrGetFromCache('likes', () => sc.getLikes(), true)
+    likes.value = await fetchLikes(true)
   } catch (e) {
     // TODO: Handle Errors Better
     console.error('Could not refetch', e)
