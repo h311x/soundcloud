@@ -11,10 +11,6 @@ import { PlaylistType } from '../lib/playlistType'
 
 const likes = shallowRef(await fetchLikes())
 
-console.time('map')
-console.log(likes.value.map((el) => el.id))
-console.timeEnd('map')
-
 const isFetching = ref(false)
 
 async function refetch() {
