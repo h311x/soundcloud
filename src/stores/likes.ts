@@ -1,25 +1,27 @@
-import { defineStore } from 'pinia'
-import { computed, ref, shallowRef } from 'vue'
+import { computed } from 'vue'
 import { fetchOrGetFromCache } from './index'
 import SoundCloudAPI from '../lib/soundcloud'
-import { Song } from '../utils'
+import { useQuery } from '@tanstack/vue-query'
 
-export const useLikesStore = defineStore('likes', () => {
-  const sc = new SoundCloudAPI()
-  const likes = shallowRef<Song[]>([])
-  const isFetching = ref(false)
+const sc = new SoundCloudAPI()
 
-  async function refetch(force?: true) {
-    if (isFetching.value) return
-    isFetching.value = true
-    try {
-      likes.value = await fetchOrGetFromCache('likes', () => sc.getLikes(), force)
-    } catch (e) {
-      // TODO: Handle Errors Better
-      console.error('Could not refetch', e)
-    } finally {
-      isFetching.value = false
-    }
+const fetcher = (force?: boolean) => fetchOrGetFromCache('likes', () => sc.getLikes(), force)
+
+export const useLikesStore = async () => {
+  const {
+    data: likes,
+    suspense,
+    isFetching,
+    refetch
+  } = useQuery({
+    queryKey: ['likes'],
+    queryFn: () => fetcher()
+  })
+  await suspense()
+
+  if (!likes.value) {
+    //TODO: Handle Errors Better
+    throw new Error('Could not fetch likes')
   }
 
   const likeIds = computed(() => likes.value.map((el) => el.id))
@@ -30,4 +32,4 @@ export const useLikesStore = defineStore('likes', () => {
     isFetching,
     likeIds
   }
-})
+}

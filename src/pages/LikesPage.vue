@@ -9,15 +9,13 @@ import TypographyH3 from '../components/typography/TypographyH3.vue'
 import { PlaylistType } from '../lib/playlistType'
 import { useLikesStore } from '../stores/likes'
 
-const likesStore = useLikesStore()
-
-await likesStore.refetch()
+const { likes, refetch, isFetching } = await useLikesStore()
 
 const search = ref('')
 const lowerSearch = computed(() => search.value.toLowerCase())
 
 const filteredList = computed(() =>
-  likesStore.likes.filter((track) => {
+  likes.value.filter((track) => {
     return (
       track.title.toLowerCase().includes(lowerSearch.value) ||
       track.username.toLowerCase().includes(lowerSearch.value)
@@ -29,7 +27,7 @@ const [{ pickSong }, setPlaylist] = useGlobalControls()
 
 function shuffle() {
   console.time('Shuffle')
-  const s = likesStore.likes
+  const s = likes.value
     .map((v) => ({ v, s: Math.random() }))
     .sort((a, b) => a.s - b.s)
     .map(({ v }) => v)
@@ -45,13 +43,13 @@ function shuffle() {
     <div class="p-5">
       <div class="flex items-center justify-between mb-3">
         <TypographyH3>Your likes</TypographyH3>
-        <Button @click="likesStore.refetch(true)" variant="ghost">
-          <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': likesStore.isFetching }" />
+        <Button @click="refetch()" variant="ghost">
+          <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isFetching }" />
         </Button>
       </div>
       <div class="flex gap-5">
         <div class="w-full">
-          <PredictiveAutocomplete v-model="search" :list="likesStore.likes" />
+          <PredictiveAutocomplete v-model="search" :list="likes" />
         </div>
         <Button @click="shuffle">
           <SparklesIcon class="w-5 h-5" />

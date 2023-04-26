@@ -1,24 +1,31 @@
-import { defineStore } from 'pinia'
-import { ref, shallowRef } from 'vue'
 import { fetchOrGetFromCache } from './index'
 import SoundCloudAPI from '../lib/soundcloud'
+import { QueryClient, useQuery } from '@tanstack/vue-query'
 
-export const useWeeklyStore = defineStore('weekly', () => {
-  const sc = new SoundCloudAPI()
-  const playlist = shallowRef<Awaited<ReturnType<typeof sc.getWeekly>>>()
-  const isFetching = ref(false)
+const sc = new SoundCloudAPI()
 
-  async function refetch(force?: true) {
-    if (isFetching.value) return
-    isFetching.value = true
-    try {
-      playlist.value = await fetchOrGetFromCache('weeklyPlaylist', () => sc.getWeekly(), force)
-    } catch (e) {
-      // TODO: Handle Errors Better
-      console.error('Could not refetch', e)
-    } finally {
-      isFetching.value = false
-    }
+const fetcher = (force?: boolean) =>
+  fetchOrGetFromCache('weeklyPlaylist', () => sc.getWeekly(), force)
+
+export const useWeeklyStore = async () => {
+  const {
+    data: playlist,
+    suspense,
+    isFetching
+  } = useQuery({
+    queryKey: ['weekly'],
+    queryFn: () => fetcher()
+  })
+  await suspense()
+
+  if (!playlist.value) {
+    //TODO: Handle Errors Better
+    throw new Error('Could not fetch playlist')
+  }
+
+  const refetch = async () => {
+    const queryClient = new QueryClient()
+    queryClient.setQueryData(['weekly'], await fetcher(true))
   }
 
   return {
@@ -26,4 +33,4 @@ export const useWeeklyStore = defineStore('weekly', () => {
     refetch,
     isFetching
   }
-})
+}

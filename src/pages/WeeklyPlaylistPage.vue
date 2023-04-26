@@ -6,20 +6,19 @@ import Button from '../components/ui/Button'
 import { ArrowPathIcon } from '@heroicons/vue/24/solid'
 import { useWeeklyStore } from '../stores/weekly'
 
-const weeklyStore = useWeeklyStore()
-await weeklyStore.refetch()
+const { playlist, refetch, isFetching } = await useWeeklyStore()
 </script>
 
 <template>
   <div class="flex flex-col">
     <div class="p-5 flex justify-between items-center">
-      <TypographyH3>{{ weeklyStore.playlist.title }}</TypographyH3>
+      <TypographyH3>{{ playlist.title }}</TypographyH3>
 
-      <Button @click="weeklyStore.refetch(true)" variant="ghost">
-        <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': weeklyStore.isFetching }" />
+      <Button @click="refetch()" variant="ghost">
+        <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isFetching }" />
       </Button>
     </div>
 
-    <TracksList :list="weeklyStore.playlist.tracks" :playlistType="PlaylistType.Weekly" />
+    <TracksList :list="playlist.tracks" :playlistType="PlaylistType.Weekly" />
   </div>
 </template>

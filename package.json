@@ -13,12 +13,12 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.13",
     "@heroicons/vue": "^2.0.17",
+    "@tanstack/vue-query": "^5.0.0-alpha.21",
     "@tauri-apps/api": "^1.2.0",
     "@vueuse/core": "^9.13.0",
     "class-variance-authority": "^0.5.1",
     "date-fns": "^2.29.3",
     "hls.js": "^1.4.0-beta.2.0.canary.9038",
-    "pinia": "^2.0.35",
     "tailwind-scrollbar": "^3.0.0",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store",
     "vue": "^3.2.45"
