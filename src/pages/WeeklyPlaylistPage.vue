@@ -3,7 +3,7 @@ import TypographyH3 from '../components/typography/TypographyH3.vue'
 import TracksList from '../components/TracksList.vue'
 import { PlaylistType } from '../lib/playlistType'
 import Button from '../components/ui/Button'
-import { ArrowPathIcon } from '@heroicons/vue/24/solid'
+import { ArrowPathIcon } from '@heroicons/vue/20/solid'
 import { useWeeklyStore } from '../stores/weekly'
 
 const { playlist, refetch, isFetching } = await useWeeklyStore()
