@@ -15,7 +15,7 @@ await weeklyStore.refetch()
     <div class="p-5 flex justify-between items-center">
       <TypographyH3>{{ weeklyStore.playlist.title }}</TypographyH3>
 
-      <Button @click="weeklyStore.refetch" variant="ghost">
+      <Button @click="weeklyStore.refetch(true)" variant="ghost">
         <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': weeklyStore.isFetching }" />
       </Button>
     </div>
