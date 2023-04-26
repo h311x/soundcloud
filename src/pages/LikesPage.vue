@@ -2,7 +2,7 @@
 import TracksList from '../components/TracksList.vue'
 import { computed, ref } from 'vue'
 import Button from '../components/ui/Button'
-import { SparklesIcon, ArrowPathIcon } from '@heroicons/vue/20/solid'
+import { SparklesIcon, ArrowPathIcon } from '@heroicons/vue/24/solid'
 import PredictiveAutocomplete from '../components/PredictiveAutocomplete.vue'
 import { useGlobalControls } from '../composables/useGlobalControls'
 import TypographyH3 from '../components/typography/TypographyH3.vue'

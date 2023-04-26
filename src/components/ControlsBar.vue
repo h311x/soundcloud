@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import Button from './ui/Button'
-import { PlayIcon, PauseIcon, ForwardIcon, BackwardIcon } from '@heroicons/vue/20/solid'
+import {
+  PlayIcon,
+  PauseIcon,
+  ForwardIcon,
+  BackwardIcon,
+  HeartIcon as HeartIconFilled
+} from '@heroicons/vue/24/solid'
+import { HeartIcon as HeartIconEmpty } from '@heroicons/vue/24/outline'
 import { useGlobalControls } from '../composables/useGlobalControls'
 import { computed } from 'vue'
 import TypographyLarge from './typography/TypographyLarge.vue'
@@ -11,23 +18,36 @@ const { likeIds } = await useLikesStore()
 
 const [{ controls, playNext, playPrev, play, pause, selectedSong }] = useGlobalControls()
 
+const isCurrentSongLiked = computed(() =>
+  selectedSong.value?.id ? likeIds.value.has(selectedSong.value.id) : false
+)
+
 const size = computed(() => (controls.currentTime.value / (controls.duration.value + 1)) * 100)
+
+function handleLike() {
+  console.log(isCurrentSongLiked.value)
+}
 </script>
 
 <template>
   <div class="px-4 py-2 w-full">
-    <div v-if="selectedSong" class="mb-3 flex gap-4">
-      <img class="w-12 h-12" :src="selectedSong.artwork_url" />
+    <div class="flex justify-between">
+      <div v-if="selectedSong" class="mb-3 flex gap-4">
+        <img class="w-12 h-12" :src="selectedSong.artwork_url" />
 
-      <div>
-        <TypographyLarge>
-          {{ selectedSong.title }} `{{ likeIds.has(selectedSong.id) ? 'liked' : 'not liked' }}`
-        </TypographyLarge>
+        <div>
+          <TypographyLarge>
+            {{ selectedSong.title }}
+          </TypographyLarge>
 
-        <TypographySmall>
-          {{ selectedSong.username }}
-        </TypographySmall>
+          <TypographySmall>
+            {{ selectedSong.username }}
+          </TypographySmall>
+        </div>
       </div>
+      <Button @click="handleLike" variant="ghost">
+        <Component class="w-6 h-6" :is="isCurrentSongLiked ? HeartIconFilled : HeartIconEmpty" />
+      </Button>
     </div>
 
     <div class="flex gap-4">
