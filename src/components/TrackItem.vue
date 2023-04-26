@@ -20,7 +20,7 @@ defineProps<{
         height="100"
         width="100"
         loading="lazy"
-        :src="song.artwork_url"
+        :src="song.artworkUrl"
       />
     </div>
     <div class="py-1">

@@ -13,6 +13,7 @@ import { computed } from 'vue'
 import TypographyLarge from './typography/TypographyLarge.vue'
 import TypographySmall from './typography/TypographySmall.vue'
 import { useLikesStore } from '../stores/likes'
+import { open } from '@tauri-apps/api/shell'
 
 const { likeIds } = await useLikesStore()
 
@@ -25,7 +26,7 @@ const isCurrentSongLiked = computed(() =>
 const size = computed(() => (controls.currentTime.value / (controls.duration.value + 1)) * 100)
 
 function handleLike() {
-  console.log(isCurrentSongLiked.value)
+  open(selectedSong.value?.songUrl ?? '')
 }
 </script>
 
@@ -33,7 +34,7 @@ function handleLike() {
   <div class="px-4 py-2 w-full">
     <div class="flex justify-between">
       <div v-if="selectedSong" class="mb-3 flex gap-4">
-        <img class="w-12 h-12" :src="selectedSong.artwork_url" />
+        <img class="w-12 h-12" :src="selectedSong.artworkUrl" />
 
         <div>
           <TypographyLarge>

@@ -12,15 +12,25 @@ export function filterSongs(likes: SoundCloudLikes) {
 }
 
 export function transformLikes(l: SoundCloudTrack[]) {
+  console.log(l)
   return l.map(
-    ({ id, media, artwork_url, title, user: { avatar_url, username }, waveform_url }) => {
+    ({
+      id,
+      media,
+      artwork_url,
+      title,
+      user: { avatar_url, username },
+      waveform_url: waveformUrl,
+      permalink_url: songUrl
+    }) => {
       return {
         id,
         media,
-        artwork_url: (artwork_url ?? avatar_url)?.replace('-large', '-t500x500'),
+        artworkUrl: (artwork_url ?? avatar_url)?.replace('-large', '-t500x500'),
         title,
         username,
-        waveform_url
+        songUrl,
+        waveformUrl
       }
     }
   )

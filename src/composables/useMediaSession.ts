@@ -69,7 +69,7 @@ export function useMediaSession(
       title: track.title,
       artist: track.username,
       artwork: ['500'].map((el) => ({
-        src: track.artwork_url ?? '',
+        src: track.artworkUrl ?? '',
         sizes: `${el}x${el}`
       }))
     })

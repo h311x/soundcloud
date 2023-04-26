@@ -28,9 +28,10 @@
 - [x] Show current song meta in controls bar
 - [x] Research how does `like` api work
 - [x] Move logic out to `store`s
-- [ ] Implement `like` feature
-- [ ] ??? Implement a router that would save current tab
-- [ ] Handle network errors better
+- [x] Implement `like` feature
+- [ ] Improve statuses (loading, refreshing, error)
+- [ ] Show SoundCloud Waveform
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
+- [ ] ??? Implement a router that would save current tab
 - [ ] ??? Implement song preloading on hover
 - [ ] ??? Implement separate playlists tab which would hold liked playlists and weekly playlist 
