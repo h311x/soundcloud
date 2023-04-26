@@ -37,9 +37,9 @@ export async function fetchOrGetFromCache<T extends (...args: any) => unknown>(
 
 const sc = new SoundCloudAPI()
 
-export async function fetchLikes(refetch?: boolean) {
+export function fetchLikes(refetch?: boolean) {
   return fetchOrGetFromCache('likes', () => sc.getLikes(), refetch)
 }
-export async function fetchWeekly(refetch?: boolean) {
+export function fetchWeekly(refetch?: boolean) {
   return fetchOrGetFromCache('weeklyPlaylist', () => sc.getWeekly(), refetch)
 }
