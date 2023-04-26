@@ -9,7 +9,7 @@ import TypographyH3 from '../components/typography/TypographyH3.vue'
 import { PlaylistType } from '../lib/playlistType'
 import { useLikesStore } from '../stores/likes'
 
-const { likes, refetch, isFetching } = await useLikesStore()
+const { likes, refetch, isRefetching } = await useLikesStore()
 
 const search = ref('')
 const lowerSearch = computed(() => search.value.toLowerCase())
@@ -44,7 +44,7 @@ function shuffle() {
       <div class="flex items-center justify-between mb-3">
         <TypographyH3>Your likes</TypographyH3>
         <Button @click="refetch()" variant="ghost">
-          <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isFetching }" />
+          <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isRefetching }" />
         </Button>
       </div>
       <div class="flex gap-5">

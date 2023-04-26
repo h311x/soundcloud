@@ -6,7 +6,7 @@ import Button from '../components/ui/Button'
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
 import { useWeeklyStore } from '../stores/weekly'
 
-const { playlist, refetch, isFetching } = await useWeeklyStore()
+const { playlist, refetch, isRefetching } = await useWeeklyStore()
 </script>
 
 <template>
@@ -15,7 +15,7 @@ const { playlist, refetch, isFetching } = await useWeeklyStore()
       <TypographyH3>{{ playlist.title }}</TypographyH3>
 
       <Button @click="refetch()" variant="ghost">
-        <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isFetching }" />
+        <ArrowPathIcon class="w-5 h-5" :class="{ 'animate-spin': isRefetching }" />
       </Button>
     </div>
 
