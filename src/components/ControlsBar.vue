@@ -5,6 +5,9 @@ import { useGlobalControls } from '../composables/useGlobalControls'
 import { computed } from 'vue'
 import TypographyLarge from './typography/TypographyLarge.vue'
 import TypographySmall from './typography/TypographySmall.vue'
+import { useLikesStore } from '../stores/likes'
+
+const { likeIds } = await useLikesStore()
 
 const [{ controls, playNext, playPrev, play, pause, selectedSong }] = useGlobalControls()
 
@@ -18,7 +21,7 @@ const size = computed(() => (controls.currentTime.value / (controls.duration.val
 
       <div>
         <TypographyLarge>
-          {{ selectedSong.title }}
+          {{ selectedSong.title }} `{{ likeIds.has(selectedSong.id) ? 'liked' : 'not liked' }}`
         </TypographyLarge>
 
         <TypographySmall>
