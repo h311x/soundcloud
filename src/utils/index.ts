@@ -12,7 +12,6 @@ export function filterSongs(likes: SoundCloudLikes) {
 }
 
 export function transformLikes(l: SoundCloudTrack[]) {
-  console.log(l)
   return l.map(
     ({
       id,
