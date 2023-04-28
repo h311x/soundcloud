@@ -8,8 +8,8 @@ import GlobalControlsProvider from './components/providers/GlobalControlsProvide
 </script>
 
 <template>
-  <GlobalControlsProvider>
-    <Suspense>
+  <Suspense>
+    <GlobalControlsProvider>
       <div class="flex flex-col h-screen">
         <div class="flex grow h-full">
           <TabGroup vertical>
@@ -50,6 +50,6 @@ import GlobalControlsProvider from './components/providers/GlobalControlsProvide
 
         <ControlsBar />
       </div>
-    </Suspense>
-  </GlobalControlsProvider>
+    </GlobalControlsProvider>
+  </Suspense>
 </template>

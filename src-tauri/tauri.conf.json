@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "soundcloud",
+    "productName": "Soundcloud",
     "version": "0.0.0"
   },
   "tauri": {
@@ -17,6 +17,9 @@
         "all": true,
         "scope": ["https://api-v2.soundcloud.com/*", "https://soundcloud.com/*", "https://*.sndcdn.com/*"]
       },
+      "notification": {
+        "all": true
+      },
       "shell": {
         "all": false,
         "open": true
@@ -25,11 +28,7 @@
     "bundle": {
       "active": true,
       "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
+        "icons/icon.icns"
       ],
       "identifier": "com.soundcloud.dev",
       "targets": "all"
@@ -49,7 +48,7 @@
         "width": 400,
         "height": 800,
         "hiddenTitle": true,
-        
+
         "transparent": true
       }
     ]
