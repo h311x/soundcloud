@@ -99,6 +99,3 @@ export default class SoundCloudAPI {
     return await this.getPlaylist(this.weeklyUrl)
   }
 }
-
-//TODO: Create add to likes / delete from likes
-// DELETE/PUT: `${baseURL}/users/${user.id}/track_likes/${track_id}?client_id=${client_id}`
