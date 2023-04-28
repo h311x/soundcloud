@@ -16,7 +16,8 @@ export function useNotifications() {
     }
   }
 
-  function send(v: Options) {
+  async function send(v: Options) {
+    await check()
     if (permissionGranted.value) {
       sendNotification(v)
     }

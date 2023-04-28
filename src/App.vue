@@ -8,8 +8,8 @@ import GlobalControlsProvider from './components/providers/GlobalControlsProvide
 </script>
 
 <template>
-  <Suspense>
-    <GlobalControlsProvider>
+  <GlobalControlsProvider>
+    <Suspense>
       <div class="flex flex-col h-screen">
         <div class="flex grow h-full">
           <TabGroup vertical>
@@ -50,6 +50,12 @@ import GlobalControlsProvider from './components/providers/GlobalControlsProvide
 
         <ControlsBar />
       </div>
-    </GlobalControlsProvider>
-  </Suspense>
+      <!--TODO: abstract loading into component-->
+      <template #fallback>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <ArrowPathIcon class="w-8 h-8 animate-spin" />
+        </div>
+      </template>
+    </Suspense>
+  </GlobalControlsProvider>
 </template>

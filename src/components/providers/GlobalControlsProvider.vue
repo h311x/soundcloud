@@ -10,9 +10,7 @@ const playlistControls = usePlaylist(currentPlaylist)
 
 provide(key, playlistControls)
 
-const { check, send } = useNotifications()
-
-await check()
+const { send } = useNotifications()
 
 watch(playlistControls.controls.playing, (v) => {
   if (!v) return
