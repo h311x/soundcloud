@@ -25,7 +25,7 @@ export const useLikesStore = async () => {
     isRefetching.value = true
     const queryClient = new QueryClient()
     //TODO: Handle Errors Better
-    queryClient.setQueryData(['weekly'], await fetcher(true))
+    queryClient.setQueryData(['likes'], await fetcher(true))
     isRefetching.value = false
   }
 
