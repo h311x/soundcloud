@@ -9,7 +9,7 @@
 - Official auth with soundcloud
 - etc.
 
-`The list will be updated as development continues`
+The list will be updated as development continues
 
 ## Features
 - Liked songs
