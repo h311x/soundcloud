@@ -30,6 +30,7 @@
 - [x] Move logic out to `store`s
 - [x] Implement `like` feature
 - [ ] Improve statuses (loading, refreshing, error)
+- [ ] Add some transitions on song hover/click
 - [ ] Show SoundCloud Waveform
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
 - [ ] ??? Implement a router that would save current tab
