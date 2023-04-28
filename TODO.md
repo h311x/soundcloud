@@ -29,8 +29,10 @@
 - [x] Research how does `like` api work
 - [x] Move logic out to `store`s
 - [x] Implement `like` feature
+- [ ] Create `Toast` component
 - [ ] Improve statuses (loading, refreshing, error)
 - [ ] Add some transitions on song hover/click
+- [ ] Create seed based shuffle
 - [ ] Show SoundCloud Waveform
 - [ ] Properly handle playlists with one song, so it doesn't infinitely loop
 - [ ] ??? Implement a router that would save current tab
