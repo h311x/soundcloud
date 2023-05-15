@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import TracksList from '../components/TracksList.vue'
 import { computed, ref } from 'vue'
-import Button from '../components/ui/Button'
 import { SparklesIcon, ArrowPathIcon } from '@heroicons/vue/24/solid'
 import PredictiveAutocomplete from '../components/PredictiveAutocomplete.vue'
 import { useGlobalControls } from '../composables/useGlobalControls'
 import TypographyH3 from '../components/typography/TypographyH3.vue'
 import { PlaylistType } from '../lib/playlistType'
 import { useLikesStore } from '../stores/likes'
+import Button from '../components/ui/Button.vue'
 
 const { likes, refetch, isRefetching } = await useLikesStore()
 

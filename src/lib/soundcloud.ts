@@ -52,6 +52,9 @@ export default class SoundCloudAPI {
         client_id: this.clientId
       }
     })
+    if (user.status === 401) {
+      throw new Error('client_id expired')
+    }
     return user.data
   }
 

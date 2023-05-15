@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Button from './ui/Button'
 import {
   PlayIcon,
   PauseIcon,
@@ -14,6 +13,7 @@ import TypographyLarge from './typography/TypographyLarge.vue'
 import TypographySmall from './typography/TypographySmall.vue'
 import { useLikesStore } from '../stores/likes'
 import { open } from '@tauri-apps/api/shell'
+import Button from './ui/Button.vue'
 
 const { likeIds } = await useLikesStore()
 

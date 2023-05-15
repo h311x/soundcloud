@@ -1,6 +1,6 @@
 import { fetchOrGetFromCache } from './index'
 import SoundCloudAPI from '../lib/soundcloud'
-import { QueryClient, useQuery } from '@tanstack/vue-query'
+import { useQueryClient, useQuery } from '@tanstack/vue-query'
 import { ref } from 'vue'
 
 const sc = new SoundCloudAPI()
@@ -13,6 +13,7 @@ export const useWeeklyStore = async () => {
     queryKey: ['weekly'],
     queryFn: () => fetcher()
   })
+  const queryClient = useQueryClient()
   await suspense()
 
   if (!playlist.value) {
@@ -24,7 +25,6 @@ export const useWeeklyStore = async () => {
   const refetch = async () => {
     if (isRefetching.value) return
     isRefetching.value = true
-    const queryClient = new QueryClient()
     //TODO: Handle Errors Better
     queryClient.setQueryData(['weekly'], await fetcher(true))
     isRefetching.value = false

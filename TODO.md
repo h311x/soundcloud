@@ -13,7 +13,7 @@
 - [x] Highlight currently playing song in the list
 - [x] Handle spacebar press when focused on the window
 - [x] Fix spacebar in focusable elements
-- [x] Change how Virtual scroll in TracksList work to make the app completely transparent 
+- [x] Change how Virtual scroll in TracksList work to make the app completely transparent
 - [x] Add predictive autocomplete input
 - [x] Fix spacebar
 - [x] Fix input width
@@ -30,6 +30,9 @@
 - [x] Move logic out to `store`s
 - [x] Implement `like` feature
 - [x] Create Notifications when song changes
+- [x] Update Vue to 3.3
+- [x] Make sure that `setQueryData` behaves as expected
+- [ ] use https://github.com/t3-oss/t3-env
 - [ ] Create `Toast` component
 - [ ] Improve statuses (loading, refreshing, error)
 - [ ] Add some transitions on song hover/click

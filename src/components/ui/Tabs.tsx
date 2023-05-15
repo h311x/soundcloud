@@ -5,9 +5,11 @@ import {
   TabPanel as HuiTabPanel,
   TabPanels as HuiTabPanels
 } from '@headlessui/vue'
-import { FunctionalComponent, ComponentOptions, ExtractPropTypes } from 'vue'
+import { FunctionalComponent, ComponentOptions, ExtractPropTypes, AllowedComponentProps } from 'vue'
 
-type CompTypes<Comp> = Comp extends ComponentOptions<infer P> ? ExtractPropTypes<P> : never
+type CompTypes<Comp> = Comp extends ComponentOptions<infer P>
+  ? ExtractPropTypes<P> & AllowedComponentProps
+  : never
 
 const TabGroup = HuiTabGroup
 const TabPanels = HuiTabPanels

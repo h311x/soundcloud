@@ -45,7 +45,11 @@ export const usePlaylist = (list: Ref<Song[]>) => {
   }
 
   function playNext() {
-    pickSong((selectedSongIdx.value + 1) % list.value.length)
+    try {
+      pickSong((selectedSongIdx.value + 1) % list.value.length)
+    } catch (e) {
+      console.log('type error?', e)
+    }
   }
 
   const { setMediaMetadata } = useMediaSession(controls, [playPrev, playNext, play, pause])

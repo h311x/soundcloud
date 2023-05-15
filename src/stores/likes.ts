@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { fetchOrGetFromCache } from './index'
 import SoundCloudAPI from '../lib/soundcloud'
-import { QueryClient, useQuery } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 
 const sc = new SoundCloudAPI()
 
@@ -12,6 +12,7 @@ export const useLikesStore = async () => {
     queryKey: ['likes'],
     queryFn: () => fetcher()
   })
+  const queryClient = useQueryClient()
   await suspense()
 
   if (!likes.value) {
@@ -23,7 +24,6 @@ export const useLikesStore = async () => {
   const refetch = async () => {
     if (isRefetching.value) return
     isRefetching.value = true
-    const queryClient = new QueryClient()
     //TODO: Handle Errors Better
     queryClient.setQueryData(['likes'], await fetcher(true))
     isRefetching.value = false
